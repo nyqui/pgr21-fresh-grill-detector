@@ -8,7 +8,7 @@
 // @match       https://ppt21.com/pb/bulpan.php*
 // @match       https://pgr21.com/bulpan/*
 // @exclude     https://pgr21.com/bulpan/0*
-// @version     0.2.0
+// @version     0.3.0
 // @author      nyqui
 // @require     https://cdn.jsdelivr.net/npm/sweetalert2@11
 // @grant       GM_addStyle
@@ -47,8 +47,6 @@ if ((window.location.pathname).includes(".php") === false) {
   var youtube = null;
 
   $(document).ready(function() {
-
-    console.log("detected yay"); //debug
     youtube = document.querySelector('iframe.youtu-embed')?.getAttribute("src");
 
     if (youtube) {
@@ -83,6 +81,7 @@ if ((window.location.pathname).includes(".php") === false) {
     var admCmts = document.querySelectorAll(admCmtName);
     var lastadmCmt = admCmts[admCmts.length - 1];
     if ((lastadmCmt.innerText).includes(bulpanTitle)) {
+      observer.disconnect();
       toastMix.fire({
         didDestroy: () => {
           window.location.href = (lastadmCmt.querySelector("a").getAttribute("href"));
